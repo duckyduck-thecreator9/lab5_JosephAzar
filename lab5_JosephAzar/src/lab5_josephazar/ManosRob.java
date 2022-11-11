@@ -38,7 +38,7 @@ public class ManosRob extends Robot{
 
     @Override
     public String toString() {
-        return "ManosRob{" + "elementos=" + elementos + ", servoMot=" + servoMot + '}';
+        return super.toString() + "ManosRob{" + "elementos=" + elementos + ", servoMot=" + servoMot + '}';
     }
     
     

@@ -64,25 +64,62 @@ public class Lab5_JosephAzar {
                                 Androides a = new Androides(elementos, altura, peso, id, x, y, runing, ano);
                                 robots.add(a);
                                 valdidacion = false;
-                            } 
-//                            else {
-//                                System.out.println("No se pudo crear el androide, no puede tener mas de dos elementos");
-//                            }
+                            } else {
+                                System.out.println("No se pudo crear el androide, no puede tener mas de dos elementos");
+                            }
                     }
                     break;
                     
                     case 2: {
-                            
+                            System.out.println("Ingrese la cantidad de elementos que tiene\n"
+                                    + "Solo puede tener 1 elemento");
+                            int elementos = lea.nextInt();
+                            System.out.println("Ingrese la cantidad de servo motores");
+                            int sevom = lea.nextInt();
+                            if (elementos == 1 || elementos == 0) {
+                                ManosRob r = new ManosRob(elementos, sevom, id, x, y, runing, ano);
+                                robots.add(r);
+                                valdidacion = false;
+                            } else {
+                                System.out.println("No se pudo crear la Mano robotica, no puede tener mas de un elemento");
+                            }
                     }
                     break;
                     
                     case 3: {
-                            
+                            System.out.println("Ingrese la cantidad de elementos que tiene\n"
+                                    + "Solo puede tener 1 elemento");
+                            int elementos = lea.nextInt();
+                            System.out.println("Ingrese la cantidad de llantas");
+                            int llantas = lea.nextInt();
+                            System.out.println("Ingrese la velocidad punta");
+                            int velocidad = lea.nextInt();
+                            if (elementos == 1 || elementos == 0) {
+                                MovilAgil ag = new MovilAgil(elementos, llantas, velocidad, id, x, y, runing, ano);
+                                robots.add(ag);
+                                valdidacion = false;
+                            } else {
+                                System.out.println("No se pudo crear el robot movil agil, no puede tener mas de un elemento");
+                            }
                     }
                     break;
                     
                     case 4: {
-                            
+                            System.out.println("Ingrese la capasidad\n"
+                                    + "Tiene que ser mas de 5");
+                            int capadidad = lea.nextInt();
+                            System.out.println("Ingrese los elementos que tiene\n"
+                                    + "Tiene que ser mas de cinco");
+                            int elementos = lea.nextInt();
+                            System.out.println("Ingrese el peso maximo");
+                            double pesoMax = lea.nextInt();
+                            if (elementos >= 5 && elementos <= capadidad) {
+                                MovoilPesado p = new MovoilPesado(elementos, pesoMax, capadidad, id, x, y, runing, ano);
+                                robots.add(p);
+                                valdidacion = false;
+                            } else {
+                                System.out.println("No se pudo crear el robot movil agil, no puede tener mas de un elemento");
+                            }
                     }
                     break;
                     }
@@ -91,8 +128,10 @@ public class Lab5_JosephAzar {
                 break;
                 
                 case 2: {
+                    String salida = "";
                     for (Object t : robots) {
-                        robots.get(robots.indexOf(t)).toString();
+                        salida =+ robots.indexOf(t) + "- " + t + "\n";
+                        System.out.println(salida);
                     }
                 }
                 break;

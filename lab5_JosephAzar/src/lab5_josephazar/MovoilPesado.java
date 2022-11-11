@@ -12,13 +12,14 @@ package lab5_josephazar;
 public class MovoilPesado extends Robot{
     
     private int elementos;
-    private int pesomax, capasidadmax;
+    private double pesomax;
+    private int capasidad;
 
-    public MovoilPesado(int elementos, int pesomax, int capasidadmax, int id, int x, int y, boolean cargado, int anofab) {
+    public MovoilPesado(int elementos, double pesomax, int capasidad, int id, int x, int y, boolean cargado, int anofab) {
         super(id, x, y, cargado, anofab);
         this.elementos = elementos;
         this.pesomax = pesomax;
-        this.capasidadmax = capasidadmax;
+        this.capasidad = capasidad;
     }
 
     public int getElementos() {
@@ -28,10 +29,26 @@ public class MovoilPesado extends Robot{
     public void setElementos(int elementos) {
         this.elementos = elementos;
     }
+    
+    public double getPesomax() {
+        return pesomax;
+    }
+
+    public void setPesomax(double pesomax) {
+        this.pesomax = pesomax;
+    }
+
+    public int getCapasidad() {
+        return capasidad;
+    }
+
+    public void setCapasidad(int capasidad) {
+        this.capasidad = capasidad;
+    }
 
     @Override
     public String toString() {
-        return "MovoilPesado{" + "elementos=" + elementos + '}';
+        return super.toString() + "MovoilPesado{" + "elementos=" + elementos + '}';
     }
     
     

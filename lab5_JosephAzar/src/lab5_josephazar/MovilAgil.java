@@ -24,7 +24,7 @@ public class MovilAgil extends Robot{
 
     @Override
     public String toString() {
-        return "MovilAgil{" + "elementos=" + elementos + ", llantas=" + llantas + ", velocidadpunta=" + velocidadpunta + '}';
+        return super.toString() + "MovilAgil{" + "elementos=" + elementos + ", llantas=" + llantas + ", velocidadpunta=" + velocidadpunta + '}';
     }
 
     public int getElementos() {
