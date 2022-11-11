@@ -26,7 +26,10 @@ public class Robot {
 
     public Robot() {
     }
-
+    
+    public void imprimir () {
+    }
+    
     @Override
     public String toString() {
         return "Robot{" + "id=" + id + ", x=" + x + ", y=" + y + ", cargado=" + cargado + ", anofab=" + anofab + '}';

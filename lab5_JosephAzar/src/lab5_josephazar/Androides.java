@@ -24,15 +24,21 @@ public class Androides extends Robot{
 
     @Override
     public String toString() {
-        return "Androides{" + "elementos=" + elementos + ", altura=" + altura + ", peso=" + peso + '}';
+        return super.toString() + "Androides{" + "elementos=" + elementos + ", altura=" + altura + ", peso=" + peso + '}';
     }
+
+    
 
     public int getElementos() {
         return elementos;
     }
 
     public void setElementos(int elementos) {
+        if (elementos < 0 && elementos > 2) {
+            System.out.println("La cantidad de elementos tiene que ser 2 o menos");
+        } else {
         this.elementos = elementos;
+        }
     }
 
     public double getAltura() {
