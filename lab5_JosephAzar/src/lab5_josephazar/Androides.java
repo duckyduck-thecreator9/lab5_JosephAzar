@@ -57,83 +57,94 @@ public class Androides extends Robot{
         this.peso = peso;
     }
     
-    public void mov(Object[][] matriz,int xi, int yi, char facing, int pasos) {
-        
+    public void mov(Object[][] matriz,int xi, int yi, String facing, int pasos) {
+        String i = "<";
+        String d = ">";
+        String A = "A";
+        String I = "I";
         int movimientos = 0;          
             if (pasos == 1) {
-        if ( facing == 60) {//izquierda
+        if ( facing.contentEquals(i) ) {//izquierda
             if (matriz[yi][xi - 1] == "[x]") {
                 System.out.println("Ahi hay un obstaculo no se puede mover");
             } else {
         matriz[yi][xi - 1] = matriz[yi][xi]; 
         matriz[yi][xi] = null;
         xi -= 1;
+        setX(xi);
         movimientos += 1;
         }
-    } else if (facing == 62) {//derecha
+    } else if (facing.contentEquals(d)) {//derecha
         if (matriz[yi][xi + 1] == "[x]") {
             System.out.println("Ahi hay un obstaculo no se puede mover");
         } else {
         matriz[yi][xi + 1] = matriz[yi][xi];
         matriz[yi][xi] = null;
         xi += 1;
+        setX(xi);
         movimientos += 1;
         }
-    } else if (facing == 73 || facing == 105) {//abajo
+    } else if (facing.contentEquals(I)) {//abajo
         if (matriz[yi + 1][xi] == "[x]") {
             System.out.println("Ahi hay un obstaculo no se puede mover");
         } else {
         matriz[yi + 1][xi] = matriz[yi][xi];
         matriz[yi][xi] = null;
         yi += 1;
+        setY(yi);
         movimientos += 1;
         }
-    }else if (facing == 66 || facing == 97) {//arriba
+    }else if (facing.contentEquals(A)) {//arriba
         if (matriz[yi - 1][xi] == "[x]") {
             System.out.println("Ahi hay un obstaculo no se puede mover");
         } else {
         matriz[yi - 1][xi] = matriz[yi][xi];
         matriz[yi][xi] = null;
         yi -= 1;
+        setY(yi);
         movimientos += 1;
         }
     }
         
    } else if (pasos == 2) {
-       if ( facing == 60) {//izquierda
+       if (facing.contentEquals(i)) {//izquierda
             if (matriz[yi][xi - 1] == "[x]" || matriz[yi][xi - 2] == "[x]") {
                 System.out.println("Ahi hay un obstaculo no se puede mover");
             } else {
         matriz[yi][xi - 2] = matriz[yi][xi]; 
         matriz[yi][xi] = null;
         xi -=2;
+        setX(xi);
         movimientos += 1;
         }
-    } else if (facing == 62) {//derecha
+    } else if (facing.contentEquals(d)) {//derecha
         if (matriz[yi][xi + 1] == "[x]" || matriz[yi][xi + 2] == "[x]") {
             System.out.println("Ahi hay un obstaculo no se puede mover");
         } else {
         matriz[yi][xi + 2] = matriz[yi][xi];
         matriz[yi][xi] = null;
         xi += 2;
+        setX(xi);
         movimientos += 1;
         }
-    } else if (facing == 73 || facing == 105) {//abajo
+    } else if (facing.contentEquals(I)) {//abajo
         if (matriz[yi + 1][xi] == "[x]" || matriz[yi + 2][xi] == "[x]") {
             System.out.println("Ahi hay un obstaculo no se puede mover");
         } else {
         matriz[yi + 2][xi] = matriz[yi][xi];
         matriz[yi][xi] = null;
         yi += 2;
+        setY(yi);
         movimientos += 1;
         }
-    }else if (facing == 66 || facing == 97) {//arriba
+    }else if (facing.contentEquals(A)) {//arriba
         if (matriz[yi - 1][xi] == "[x]" || matriz[yi - 2][xi] == "[x]") {
             System.out.println("Ahi hay un obstaculo no se puede mover");
         } else {
         matriz[yi - 2][xi] = matriz[yi][xi];
         matriz[yi][xi] = null;
         yi -= 2;
+        setY(yi);
         movimientos += 1;
         }
         
@@ -142,37 +153,53 @@ public class Androides extends Robot{
             System.out.println("Movimientos totales: " + movimientos);
    }
     
-    public void rot (int angulo, char facing) {
+    static public String rot (int angulo, String facing) {
+        
+        String i = "<";
+        String d = ">";
+        String A = "A";
+        String I = "I";
         
         //angulo 90
-        if (angulo == 90 && facing == 60) {//viendo izquiera
-            facing = 66;
-        } else if (angulo == 90 && facing == 62) {//viendo derecha
-            facing = 73;
-        } else if (angulo == 90 && facing == 65) {//viendo arriva
-            facing = 62;
-        } else if (angulo == 90 && facing == 73) {//viendo abajo
-            facing = 60;
+        if (angulo == 90 && facing.contentEquals(i)) {//viendo izquiera
+            facing = A;
+        } 
+        if (angulo == 90 && facing.equals(">")) {//viendo derecha
+            facing = I;
+        } 
+        if (angulo == 90 && facing.contentEquals(A)) {//viendo arriva
+            facing = d;
+        } 
+        if (angulo == 90 && facing.contentEquals(I)) {//viendo abajo
+            facing = i;            
             
-            
-        } else if (angulo == 180 && facing == 60) {//viendo Izquiera
-            facing = 62;
-        } else if (angulo == 180 && facing == 62) {//viendo derecha
-            facing = 60;
-        } else if (angulo == 180 && facing == 66) {//viendo arriva
-            facing = 73;
-        }else if (angulo == 180 && facing == 73) {//viendo abajo
-            facing = 65;
+        } 
+        if (angulo == 180 && facing.contentEquals(i)) {//viendo izquiera
+            facing = d;
+        } 
+        if (angulo == 180 && facing.contentEquals(d)) {//viendo derecha
+            facing = i;
+        } 
+        if (angulo == 180 && facing.contentEquals(A)) {//viendo arriva
+            facing = I;
+        } 
+        if (angulo == 180 && facing.contentEquals(I)) {//viendo abajo
+            facing = A;
 
-        } else if (angulo == 270 && facing == 60) {//viendo Izquiera
-            facing = 73;
-        } else if (angulo == 270 && facing == 62) {//viendo derecha
-            facing = 66;
-        } else if (angulo == 270 && facing == 66) {//viendo arriva
-            facing = 60;
-        }else if (angulo == 270 && facing == 73) {//viendo abajo
-            facing = 62;
+        } 
+        if (angulo == 270 && facing.contentEquals(i)) {//viendo izquiera
+            facing = I;
+        } 
+        if (angulo == 270 && facing.contentEquals(d)) {//viendo derecha
+            facing = A;
+        } 
+        if (angulo == 270 && facing.contentEquals(A)) {//viendo arriva
+            facing = i;
+        } 
+        if (angulo == 270 && facing.contentEquals(I)) {//viendo abajo
+            facing = d;
 
-        }   
+        }
+        return facing;
     }
 }

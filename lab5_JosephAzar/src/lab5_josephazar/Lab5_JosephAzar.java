@@ -171,9 +171,9 @@ public class Lab5_JosephAzar {
                     ArrayList xoc = new ArrayList();
                     ArrayList yoa = new ArrayList();
                     
-                    char facing = '>';
+                    String facing = ">";
                     boolean llenar = true;
-                    while (llenar == true);
+                    while (llenar == true) {
                     
                     System.out.println("Que desea agregar a el script?\n"
                             + "1. Mover\n"
@@ -218,10 +218,14 @@ public class Lab5_JosephAzar {
                         }
                         break;                       
                     }
+                    }
                     
                     for (int i = 0; i < xoc.size(); i++) {
                         if ((int)xoc.get(i) == 0) {
                             ((Androides)robots.get(opcion)).mov(matriz, ((Robot)robots.get(opcion)).getX() , ((Robot)robots.get(opcion)).getY() , facing, opcion);
+                        }
+                        if ((int)xoc.get(i) == 1) {
+                            ((Androides)robots.get(opcion)).rot((int)yoa.get(i), facing);
                         }
                     }
                 }
@@ -239,28 +243,27 @@ public class Lab5_JosephAzar {
                     }
                     System.out.println("Que robot va a utilizar?");
                     int opcion = lea.nextInt();
+                    
                     impriirmatriz(opcion);
-                    
-                    System.out.println("Que robot va a utilizar?");
-                    //int opcion = lea.nextInt();
-                    
-                    ArrayList xoc = new ArrayList();
-                    ArrayList yoa = new ArrayList();
-                    
-                    char facing = '>';
+
+                    String facing = ">";
                     boolean llenar = true;
-                    while (llenar == true);
+                    while (llenar == true) {
                     
-                    System.out.println("Que desea agregar a el script?\n"
+                    System.out.println("Que desea hacer?\n"
                             + "1. Mover\n"
-                            + "2. rotar");
+                            + "2. rotar\n"
+                            + "3. Terminar simulacion");
                     int opi = lea.nextInt();
                     
                     switch (opi) {
                         case 1:{
-                            xoc.add(0);
-                            yoa.add(0);
-                            System.out.println("Se ha agregado exitosamente al script");
+                            int x = ((Androides)robots.get(opcion)).getX();
+                            int y = ((Androides)robots.get(opcion)).getY();
+                            
+                            ((Androides)robots.get(opcion)).mov(matriz, x, y, facing, opcion);
+                            System.out.println(facing);
+                            imprimir(opcion);
                     }
                         break;
                         case 2: {
@@ -271,20 +274,25 @@ public class Lab5_JosephAzar {
                             int ro = lea.nextInt();
                             switch (ro) {
                                 case 1: {
-                                    ((Androides)robots.get(opcion)).rot(90, facing);
+                                    facing = Androides.rot(90, facing);
+                                    System.out.println(facing);
+                                    imprimir(opcion);
                                 }
                                 break;
                                 case 2: {
                                     ((Androides)robots.get(opcion)).rot(180, facing);
+                                    imprimir(opcion);
                                 }
                                 break;
                                 case 3: {
                                     ((Androides)robots.get(opcion)).rot(270, facing);
+                                    imprimir(opcion);
                                 }
                                 break;
-                            }
-                            
-                    ((Robot)robots.get(opcion)).mov();
+                            }  
+                          }
+                       }
+                    }
                 }
                 break;
                 
@@ -295,14 +303,11 @@ public class Lab5_JosephAzar {
                 break;
                 default: 
                     System.out.println("Numero no es valido");
-            }
-        }//fin while del programa
+      }//fin while del programa
     }
+}
     
         static public void impriirmatriz(int opcion) {
-        Object[][] matriz = new Object[8][8];
-        int x = ((Robot)robots.get(opcion)).getX();
-        int y = ((Robot)robots.get(opcion)).getY();
         
         for (int i = 0; i < matriz.length; i ++) {
             for (int j = 0; j < matriz[i].length; j ++) {
@@ -315,6 +320,7 @@ public class Lab5_JosephAzar {
                      if (pos == true) {
                         matriz[i][j] = "[   ]";
                      } else if (pos == false) {
+                         System.out.println("robot metido");
                          matriz[i][j] = ficha;
                      }
             }
@@ -324,10 +330,8 @@ public class Lab5_JosephAzar {
             String xl = "[ x ]";
             int f = 1 + r.nextInt(7);
             int c = 1 + r.nextInt(7);
-            if (xl.contentEquals((String)matriz[f][c])) {
-                if (x == ((Robot)robots.get(opcion)).getX() && y == ((Robot)robots.get(opcion)).getY()) { 
+            if (xl.contentEquals((String)matriz[f][c]) || c == ((Robot)robots.get(opcion)).getX() && f == ((Robot)robots.get(opcion)).getY()) {
                 i -= 1;
-                }
             } else {
             matriz[f][c] = "[ x ]";
             }
@@ -335,6 +339,15 @@ public class Lab5_JosephAzar {
         
         for (int i = 0; i < matriz.length; i ++) {
             for (int j = 0; j < matriz.length; j ++) {
+                System.out.print(matriz[i][j]);
+            }
+            System.out.println();
+        }
+    }
+        
+        static public void imprimir(int opcion) {
+            for (int i = 0; i < matriz.length; i ++) {
+                for (int j = 0; j < matriz.length; j ++) {
                 System.out.print(matriz[i][j]);
             }
             System.out.println();
