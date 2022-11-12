@@ -9,7 +9,7 @@ package lab5_josephazar;
  *
  * @author joseph
  */
-public class Robot {
+public class Robot implements Movimiento{
     private int id;
     private int x;
     private int y;
@@ -74,6 +74,14 @@ public class Robot {
     public void setAnofab(int anofab) {
         this.anofab = anofab;
     }
+
+    @Override
+    public void mov() {
+        
+    }
     
-    
+    @Override
+    public void rot() {
+        
+    }
 }

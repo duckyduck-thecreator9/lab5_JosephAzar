@@ -51,5 +51,80 @@ public class MovilAgil extends Robot{
         this.velocidadpunta = velocidadpunta;
     }
     
+    public void mov(Object[][] matriz,int xi, int yi, char facing) {
+        
+        int movimientos = 0;          
+        if ( facing == 60) {//izquierda
+            if (matriz[yi][xi - 1] == "[x]") {
+                System.out.println("Ahi hay un obstaculo no se puede mover");
+            } else {
+        matriz[yi][xi - 1] = matriz[yi][xi]; 
+        matriz[yi][xi] = null;
+        xi -= 1;
+        movimientos += 1;
+        }
+    } else if (facing == 62) {//derecha
+        if (matriz[yi][xi + 1] == "[x]") {
+            System.out.println("Ahi hay un obstaculo no se puede mover");
+        } else {
+        matriz[yi][xi + 1] = matriz[yi][xi];
+        matriz[yi][xi] = null;
+        xi += 1;
+        movimientos += 1;
+        }
+    } else if (facing == 73 || facing == 105) {//abajo
+        if (matriz[yi + 1][xi] == "[x]") {
+            System.out.println("Ahi hay un obstaculo no se puede mover");
+        } else {
+        matriz[yi + 1][xi] = matriz[yi][xi];
+        matriz[yi][xi] = null;
+        yi += 1;
+        movimientos += 1;
+        }
+    }else if (facing == 65 || facing == 97) {//arriba
+        if (matriz[yi - 1][xi] == "[x]") {
+            System.out.println("Ahi hay un obstaculo no se puede mover");
+        } else {
+        matriz[yi - 1][xi] = matriz[yi][xi];
+        matriz[yi][xi] = null;
+        yi -= 1;
+        movimientos += 1;
+        }
+      }
+        System.out.println("Movimientos totales: " + movimientos);
+    }
     
+    public void rot (int angulo, char facing) {
+        
+        //angulo 90
+        if (angulo == 90 && facing == 60) {//viendo izquiera
+            facing = 66;
+        } else if (angulo == 90 && facing == 62) {//viendo derecha
+            facing = 105;
+        } else if (angulo == 90 && facing == 66) {//viendo arriva
+            facing = 62;
+        } else if (angulo == 90 && facing == 73) {//viendo abajo
+            facing = 60;
+            
+            
+        } else if (angulo == 180 && facing == 60) {//viendo Izquiera
+            facing = 62;
+        } else if (angulo == 180 && facing == 62) {//viendo derecha
+            facing = 60;
+        } else if (angulo == 180 && facing == 66) {//viendo arriva
+            facing = 73;
+        }else if (angulo == 180 && facing == 73) {//viendo abajo
+            facing = 66;
+
+        } else if (angulo == 270 && facing == 60) {//viendo Izquiera
+            facing = 73;
+        } else if (angulo == 270 && facing == 62) {//viendo derecha
+            facing = 66;
+        } else if (angulo == 270 && facing == 66) {//viendo arriva
+            facing = 60;
+        }else if (angulo == 270 && facing == 73) {//viendo abajo
+            facing = 62;
+
+        }   
+    }
 }

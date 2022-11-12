@@ -7,6 +7,7 @@ package lab5_josephazar;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  *
@@ -16,6 +17,8 @@ public class Lab5_JosephAzar {
 
     static ArrayList robots = new ArrayList();
     static Scanner lea = new Scanner(System.in);
+    static Random r = new Random();
+    static Object matriz[][] = new Object[8][8];
     /**
      * @param args the command line arguments
      */
@@ -60,8 +63,12 @@ public class Lab5_JosephAzar {
                             double altura = lea.nextDouble();
                             System.out.println("Ingrese el peso");
                             double peso = lea.nextInt();
-                            if (elementos >=0 && elementos <=2) {
-                                Androides a = new Androides(elementos, altura, peso, id, x, y, runing, ano);
+                            if (elementos >0 && elementos <=2) {
+                                Androides a = new Androides(elementos, altura, peso, id, x, y, true, ano);
+                                robots.add(a);
+                                valdidacion = false;
+                            } else if (elementos == 0) {
+                                Androides a = new Androides(elementos, altura, peso, id, x, y, false, ano);
                                 robots.add(a);
                                 valdidacion = false;
                             } else {
@@ -76,8 +83,12 @@ public class Lab5_JosephAzar {
                             int elementos = lea.nextInt();
                             System.out.println("Ingrese la cantidad de servo motores");
                             int sevom = lea.nextInt();
-                            if (elementos == 1 || elementos == 0) {
-                                ManosRob r = new ManosRob(elementos, sevom, id, x, y, runing, ano);
+                            if (elementos == 1) {
+                                ManosRob r = new ManosRob(elementos, sevom, id, x, y, true, ano);
+                                robots.add(r);
+                                valdidacion = false;
+                            } else if (elementos == 0) {
+                                ManosRob r = new ManosRob(elementos, sevom, id, x, y, false, ano);
                                 robots.add(r);
                                 valdidacion = false;
                             } else {
@@ -95,7 +106,11 @@ public class Lab5_JosephAzar {
                             System.out.println("Ingrese la velocidad punta");
                             int velocidad = lea.nextInt();
                             if (elementos == 1 || elementos == 0) {
-                                MovilAgil ag = new MovilAgil(elementos, llantas, velocidad, id, x, y, runing, ano);
+                                MovilAgil ag = new MovilAgil(elementos, llantas, velocidad, id, x, y, true, ano);
+                                robots.add(ag);
+                                valdidacion = false;
+                            } else if (elementos == 0) {
+                                MovilAgil ag = new MovilAgil(elementos, llantas, velocidad, id, x, y, false, ano);
                                 robots.add(ag);
                                 valdidacion = false;
                             } else {
@@ -114,11 +129,15 @@ public class Lab5_JosephAzar {
                             System.out.println("Ingrese el peso maximo");
                             double pesoMax = lea.nextInt();
                             if (elementos >= 5 && elementos <= capadidad) {
-                                MovoilPesado p = new MovoilPesado(elementos, pesoMax, capadidad, id, x, y, runing, ano);
+                                MovoilPesado p = new MovoilPesado(elementos, pesoMax, capadidad, id, x, y, true, ano);
+                                robots.add(p);
+                                valdidacion = false;
+                            } else if (elementos == 0) {
+                                MovoilPesado p = new MovoilPesado(elementos, pesoMax, capadidad, id, x, y, false, ano);
                                 robots.add(p);
                                 valdidacion = false;
                             } else {
-                                System.out.println("No se pudo crear el robot movil agil, no puede tener mas de un elemento");
+                                System.out.println("No se pudo crear el robot movil Pesado, Los elementos tienen que ser entre 5 y " + capadidad + " elementos");
                             }
                     }
                     break;
@@ -137,12 +156,135 @@ public class Lab5_JosephAzar {
                 break;
                 
                 case 3: {
+                    String salida = "";
+                    for (Object t : robots) {
+                        if (robots.get(robots.indexOf(t)) instanceof ManosRob) {
+                            
+                        } else {
+                        salida =+ robots.indexOf(t) + "- " + t + "\n";
+                        System.out.println(salida);
+                        }
+                    }
+                    System.out.println("Que robot va a utilizar?");
+                    int opcion = lea.nextInt();
                     
+                    ArrayList xoc = new ArrayList();
+                    ArrayList yoa = new ArrayList();
+                    
+                    char facing = '>';
+                    boolean llenar = true;
+                    while (llenar == true);
+                    
+                    System.out.println("Que desea agregar a el script?\n"
+                            + "1. Mover\n"
+                            + "2. rotar\n"
+                            + "3. proceder a matriz");
+                    int opi = lea.nextInt();
+                    
+                    switch (opi) {
+                        case 1:{
+                            xoc.add(0);
+                            yoa.add(0);
+                            System.out.println("Se ha agregado exitosamente al script");
+                    }
+                        break;
+                        case 2: {
+                            System.out.println("A que angulo lo quiere rotar\n"
+                                    + "1. 90\n"
+                                    + "2. 180\n"
+                                    + "3. 270");
+                            int ro = lea.nextInt();
+                            switch (ro) {
+                                case 1: {
+                                    xoc.add(1);
+                                    yoa.add(90);
+                                }
+                                break;
+                                case 2: {
+                                    xoc.add(1);
+                                    yoa.add(180);
+                                }
+                                break;
+                                case 3: {
+                                    xoc.add(1);
+                                    yoa.add(270);
+                                }
+                                break;
+                            }
+                        }
+                        break;
+                        case 3: {
+                            llenar = false;
+                        }
+                        break;                       
+                    }
+                    
+                    for (int i = 0; i < xoc.size(); i++) {
+                        if ((int)xoc.get(i) == 0) {
+                            ((Androides)robots.get(opcion)).mov(matriz, ((Robot)robots.get(opcion)).getX() , ((Robot)robots.get(opcion)).getY() , facing, opcion);
+                        }
+                    }
                 }
                 break;
                 
                 case 4: {
+                    String salida = "";
+                    for (Object t : robots) {
+                        if (robots.get(robots.indexOf(t)) instanceof MovilAgil) {
+                        
+                    } else {
+                        salida =+ robots.indexOf(t) + "- " + t + "\n";
+                        System.out.println(salida);
+                        }
+                    }
+                    System.out.println("Que robot va a utilizar?");
+                    int opcion = lea.nextInt();
+                    impriirmatriz(opcion);
                     
+                    System.out.println("Que robot va a utilizar?");
+                    //int opcion = lea.nextInt();
+                    
+                    ArrayList xoc = new ArrayList();
+                    ArrayList yoa = new ArrayList();
+                    
+                    char facing = '>';
+                    boolean llenar = true;
+                    while (llenar == true);
+                    
+                    System.out.println("Que desea agregar a el script?\n"
+                            + "1. Mover\n"
+                            + "2. rotar");
+                    int opi = lea.nextInt();
+                    
+                    switch (opi) {
+                        case 1:{
+                            xoc.add(0);
+                            yoa.add(0);
+                            System.out.println("Se ha agregado exitosamente al script");
+                    }
+                        break;
+                        case 2: {
+                            System.out.println("A que angulo lo quiere rotar\n"
+                                    + "1. 90\n"
+                                    + "2. 180\n"
+                                    + "3. 270");
+                            int ro = lea.nextInt();
+                            switch (ro) {
+                                case 1: {
+                                    ((Androides)robots.get(opcion)).rot(90, facing);
+                                }
+                                break;
+                                case 2: {
+                                    ((Androides)robots.get(opcion)).rot(180, facing);
+                                }
+                                break;
+                                case 3: {
+                                    ((Androides)robots.get(opcion)).rot(270, facing);
+                                }
+                                break;
+                            }
+                            
+                    ((Robot)robots.get(opcion)).mov();
                 }
                 break;
                 
@@ -157,4 +299,46 @@ public class Lab5_JosephAzar {
         }//fin while del programa
     }
     
+        static public void impriirmatriz(int opcion) {
+        Object[][] matriz = new Object[8][8];
+        int x = ((Robot)robots.get(opcion)).getX();
+        int y = ((Robot)robots.get(opcion)).getY();
+        
+        for (int i = 0; i < matriz.length; i ++) {
+            for (int j = 0; j < matriz[i].length; j ++) {
+                boolean pos = true;
+                String ficha = null;
+                     if (((Robot)robots.get(opcion)).getX() == j && ((Robot)robots.get(opcion)).getY() == i) {
+                         ficha = "[ r ]";
+                         pos = false;
+                     } 
+                     if (pos == true) {
+                        matriz[i][j] = "[   ]";
+                     } else if (pos == false) {
+                         matriz[i][j] = ficha;
+                     }
+            }
+        }
+        
+        for (int i = 0; i < 30; i ++) {
+            String xl = "[ x ]";
+            int f = 1 + r.nextInt(7);
+            int c = 1 + r.nextInt(7);
+            if (xl.contentEquals((String)matriz[f][c])) {
+                if (x == ((Robot)robots.get(opcion)).getX() && y == ((Robot)robots.get(opcion)).getY()) { 
+                i -= 1;
+                }
+            } else {
+            matriz[f][c] = "[ x ]";
+            }
+        }
+        
+        for (int i = 0; i < matriz.length; i ++) {
+            for (int j = 0; j < matriz.length; j ++) {
+                System.out.print(matriz[i][j]);
+            }
+            System.out.println();
+        }
+    }
 }
+    
